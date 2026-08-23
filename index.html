@@ -18,3 +18,23 @@
       <button class="game-btn" data-game="tic">❌ Tic-Tac-Toe</button>
       <button class="game-btn" data-game="memory">🧠 Memory</button>
     </div>
+    <!-- Snake Game -->
+    <div id="snake" class="game-container active">
+      <h2>🐍 Snake</h2>
+      <div class="score-board">
+        <span>Score: <span id="snakeScore">0</span></span>
+        <span>High Score: <span id="snakeHighScore">0</span></span>
+      </div>
+      <canvas id="snakeCanvas" width="400" height="400"></canvas>
+      <div class="controls">
+        <button id="snakeStartBtn">🔄 New Game</button>
+        <div class="arrow-keys">
+          <button class="arrow" data-dir="up">⬆</button>
+          <div>
+            <button class="arrow" data-dir="left">⬅</button>
+            <button class="arrow" data-dir="down">⬇</button>
+            <button class="arrow" data-dir="right">➡</button>
+          </div>
+        </div>
+      </div>
+    </div>
