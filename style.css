@@ -107,3 +107,183 @@ h1 {
     padding: 5px 15px;
     border-radius: 20px;
 }
+
+/* Snake */
+#snakeCanvas {
+    border: 3px solid #333;
+    border-radius: 10px;
+    background: #1a1a2e;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.arrow-keys {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.arrow-keys div {
+    display: flex;
+    gap: 5px;
+}
+
+.arrow {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background: #667eea;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.arrow:active {
+    transform: scale(0.9);
+    background: #5a6fd6;
+}
+
+button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #667eea;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Tic-Tac-Toe */
+.tic-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    gap: 5px;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.tic-cell {
+    width: 100px;
+    height: 100px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #333;
+}
+
+.tic-cell:hover {
+    background: #e0e0e0;
+    transform: scale(1.02);
+}
+
+.tic-cell.win {
+    background: #4caf50;
+    color: white;
+}
+
+#ticStatus {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Memory Game */
+.memory-board {
+    display: grid;
+    grid-template-columns: repeat(4, 80px);
+    gap: 10px;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.memory-card {
+    width: 80px;
+    height: 80px;
+    background: #667eea;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    user-select: none;
+}
+
+.memory-card:hover {
+    transform: scale(1.05);
+}
+
+.memory-card.flipped {
+    background: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.memory-card.matched {
+    background: #4caf50;
+    cursor: default;
+    transform: scale(0.95);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .tic-board {
+        grid-template-columns: repeat(3, 80px);
+    }
+
+    .tic-cell {
+        width: 80px;
+        height: 80px;
+        font-size: 36px;
+    }
+
+    .memory-board {
+        grid-template-columns: repeat(4, 65px);
+        gap: 8px;
+    }
+
+    .memory-card {
+        width: 65px;
+        height: 65px;
+        font-size: 24px;
+    }
+
+    #snakeCanvas {
+        width: 300px;
+        height: 300px;
+    }
+
+    .arrow {
+        width: 45px;
+        height: 45px;
+    }
+}
