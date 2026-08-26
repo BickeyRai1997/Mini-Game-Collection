@@ -86,3 +86,24 @@ h1 {
         transform: scale(1);
     }
 }
+
+.game-container h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Score Board */
+.score-board {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #555;
+}
+
+.score-board span {
+    background: #f0f0f0;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
