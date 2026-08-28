@@ -46,3 +46,19 @@ function initSnake() {
   spawnFood();
   snakeScore.textContent = 0;
 }
+function spawnFood() {
+  const cols = 20;
+  const size = 20;
+  let newFood;
+  let isOnSnake;
+  do {
+    newFood = {
+      x: Math.floor(Math.random() * cols) * size,
+      y: Math.floor(Math.random() * cols) * size
+    };
+    isOnSnake = snake.some(segment =>
+      segment.x === newFood.x && segment.y === newFood.y
+    );
+  } while (isOnSnake);
+  snakeFood = newFood;
+}
