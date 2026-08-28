@@ -62,3 +62,19 @@ function spawnFood() {
   } while (isOnSnake);
   snakeFood = newFood;
 }
+function drawSnake() {
+  ctx.clearRect(0, 0, 400, 400);
+
+  // Draw grid
+  ctx.strokeStyle = '#2a2a4a';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 20; i++) {
+    ctx.beginPath();
+    ctx.moveTo(i * 20, 0);
+    ctx.lineTo(i * 20, 400);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, i * 20);
+    ctx.lineTo(400, i * 20);
+    ctx.stroke();
+  }
