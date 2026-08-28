@@ -20,3 +20,61 @@ gameBtns.forEach(btn => {
     }
   });
 });
+// ============================================
+// 🐍 SNAKE GAME
+// ============================================
+const snakeCanvas = document.getElementById('snakeCanvas');
+const ctx = snakeCanvas.getContext('2d');
+const snakeScore = document.getElementById('snakeScore');
+const snakeHighScore = document.getElementById('snakeHighScore');
+
+let snake = [];
+let snakeDirection = 'right';
+let snakeFood = {};
+let snakeGameRunning = false;
+let snakeGameLoop = null;
+let snakeSpeed = 150;
+let highScore = parseInt(localStorage.getItem('snakeHighScore')) || 0;
+snakeHighScore.textContent = highScore;
+function initSnake() {
+  snake = [
+    { x: 200, y: 200 },
+    { x: 180, y: 200 },
+    { x: 160, y: 200 }
+  ];
+  snakeDirection = 'right';
+  spawnFood();
+  snakeScore.textContent = 0;
+}
+function spawnFood() {
+  const cols = 20;
+  const size = 20;
+  let newFood;
+  let isOnSnake;
+  do {
+    newFood = {
+      x: Math.floor(Math.random() * cols) * size,
+      y: Math.floor(Math.random() * cols) * size
+    };
+    isOnSnake = snake.some(segment =>
+      segment.x === newFood.x && segment.y === newFood.y
+    );
+  } while (isOnSnake);
+  snakeFood = newFood;
+}
+function drawSnake() {
+  ctx.clearRect(0, 0, 400, 400);
+
+  // Draw grid
+  ctx.strokeStyle = '#2a2a4a';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 20; i++) {
+    ctx.beginPath();
+    ctx.moveTo(i * 20, 0);
+    ctx.lineTo(i * 20, 400);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, i * 20);
+    ctx.lineTo(400, i * 20);
+    ctx.stroke();
+  }
