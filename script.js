@@ -36,3 +36,13 @@ let snakeGameLoop = null;
 let snakeSpeed = 150;
 let highScore = parseInt(localStorage.getItem('snakeHighScore')) || 0;
 snakeHighScore.textContent = highScore;
+function initSnake() {
+  snake = [
+    { x: 200, y: 200 },
+    { x: 180, y: 200 },
+    { x: 160, y: 200 }
+  ];
+  snakeDirection = 'right';
+  spawnFood();
+  snakeScore.textContent = 0;
+}
