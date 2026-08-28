@@ -20,3 +20,19 @@ gameBtns.forEach(btn => {
     }
   });
 });
+// ============================================
+// 🐍 SNAKE GAME
+// ============================================
+const snakeCanvas = document.getElementById('snakeCanvas');
+const ctx = snakeCanvas.getContext('2d');
+const snakeScore = document.getElementById('snakeScore');
+const snakeHighScore = document.getElementById('snakeHighScore');
+
+let snake = [];
+let snakeDirection = 'right';
+let snakeFood = {};
+let snakeGameRunning = false;
+let snakeGameLoop = null;
+let snakeSpeed = 150;
+let highScore = parseInt(localStorage.getItem('snakeHighScore')) || 0;
+snakeHighScore.textContent = highScore;
