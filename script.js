@@ -78,3 +78,11 @@ function drawSnake() {
     ctx.lineTo(400, i * 20);
     ctx.stroke();
   }
+  // Draw food
+    ctx.fillStyle = '#ff6b6b';
+    ctx.shadowColor = '#ff6b6b';
+    ctx.shadowBlur = 15;
+    ctx.beginPath();
+    ctx.arc(snakeFood.x + 10, snakeFood.y + 10, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
