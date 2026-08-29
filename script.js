@@ -86,3 +86,16 @@ function drawSnake() {
     ctx.arc(snakeFood.x + 10, snakeFood.y + 10, 8, 0, Math.PI * 2);
     ctx.fill();
     ctx.shadowBlur = 0;
+    // Draw snake
+    snake.forEach((segment, index) => {
+        const gradient = ctx.createRadialGradient(
+            segment.x + 5, segment.y + 5, 2,
+            segment.x + 10, segment.y + 10, 12
+        );
+        if (index === 0) {
+            gradient.addColorStop(0, '#4caf50');
+            gradient.addColorStop(1, '#2e7d32');
+        } else {
+            gradient.addColorStop(0, '#66bb6a');
+            gradient.addColorStop(1, '#388e3c');
+        }
