@@ -99,3 +99,11 @@ function drawSnake() {
             gradient.addColorStop(0, '#66bb6a');
             gradient.addColorStop(1, '#388e3c');
         }
+         ctx.fillStyle = gradient;
+        ctx.shadowColor = '#4caf50';
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.roundRect(segment.x + 1, segment.y + 1, 18, 18, 5);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+    });
