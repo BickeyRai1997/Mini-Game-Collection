@@ -124,3 +124,41 @@ function drawSnake() {
   ctx.arc(head.x + 15, head.y + 5, 1.5, 0, Math.PI * 2);
   ctx.fill();
 }
+// roundRect polyfill for canvas
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+    if (r > w / 2) r = w / 2;
+    if (r > h / 2) r = h / 2;
+    this.moveTo(x + r, y);
+    this.lineTo(x + w - r, y);
+    this.quadraticCurveTo(x + w, y, x + w, y + r);
+    this.lineTo(x + w, y + h - r);
+    this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    this.lineTo(x + r, y + h);
+    this.quadraticCurveTo(x, y + h, x, y + h - r);
+    this.lineTo(x, y + r);
+    this.quadraticCurveTo(x, y, x + r, y);
+    return this;
+  };
+}
+function moveSnake() {
+  const head = { ...snake[0] };
+
+  switch (snakeDirection) {
+    case 'right': head.x += 20; break;
+    case 'left': head.x -= 20; break;
+    case 'up': head.y -= 20; break;
+    case 'down': head.y += 20; break;
+  }
+  // Check wall collision
+  if (head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400) {
+    gameOver();
+    return;
+  }
+  // Check self collision
+  if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+    gameOver();
+    return;
+  }
+
+  snake.unshift(head);
