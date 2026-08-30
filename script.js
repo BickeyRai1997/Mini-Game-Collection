@@ -155,3 +155,10 @@ function moveSnake() {
     gameOver();
     return;
   }
+  // Check self collision
+  if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+    gameOver();
+    return;
+  }
+
+  snake.unshift(head);
