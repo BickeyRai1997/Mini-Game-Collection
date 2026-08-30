@@ -141,3 +141,12 @@ if (!CanvasRenderingContext2D.prototype.roundRect) {
     return this;
   };
 }
+function moveSnake() {
+  const head = { ...snake[0] };
+
+  switch (snakeDirection) {
+    case 'right': head.x += 20; break;
+    case 'left': head.x -= 20; break;
+    case 'up': head.y -= 20; break;
+    case 'down': head.y += 20; break;
+  }
