@@ -150,3 +150,8 @@ function moveSnake() {
     case 'up': head.y -= 20; break;
     case 'down': head.y += 20; break;
   }
+  // Check wall collision
+  if (head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400) {
+    gameOver();
+    return;
+  }
