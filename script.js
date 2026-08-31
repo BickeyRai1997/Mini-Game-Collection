@@ -162,3 +162,13 @@ function moveSnake() {
   }
 
   snake.unshift(head);
+   // Check food
+    if (head.x === snakeFood.x && head.y === snakeFood.y) {
+        snakeScore.textContent = parseInt(snakeScore.textContent) + 1;
+        spawnFood();
+    } else {
+        snake.pop();
+    }
+
+    drawSnake();
+}
