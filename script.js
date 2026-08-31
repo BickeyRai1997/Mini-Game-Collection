@@ -172,3 +172,17 @@ function moveSnake() {
 
     drawSnake();
 }
+
+function gameOver() {
+    if (snakeGameLoop) {
+        clearInterval(snakeGameLoop);
+        snakeGameLoop = null;
+    }
+    snakeGameRunning = false;
+
+    const score = parseInt(snakeScore.textContent);
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('snakeHighScore', highScore);
+        snakeHighScore.textContent = highScore;
+    }
