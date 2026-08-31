@@ -162,27 +162,37 @@ function moveSnake() {
   }
 
   snake.unshift(head);
-   // Check food
-    if (head.x === snakeFood.x && head.y === snakeFood.y) {
-        snakeScore.textContent = parseInt(snakeScore.textContent) + 1;
-        spawnFood();
-    } else {
-        snake.pop();
-    }
+  // Check food
+  if (head.x === snakeFood.x && head.y === snakeFood.y) {
+    snakeScore.textContent = parseInt(snakeScore.textContent) + 1;
+    spawnFood();
+  } else {
+    snake.pop();
+  }
 
-    drawSnake();
+  drawSnake();
 }
 
 function gameOver() {
-    if (snakeGameLoop) {
-        clearInterval(snakeGameLoop);
-        snakeGameLoop = null;
-    }
-    snakeGameRunning = false;
+  if (snakeGameLoop) {
+    clearInterval(snakeGameLoop);
+    snakeGameLoop = null;
+  }
+  snakeGameRunning = false;
 
-    const score = parseInt(snakeScore.textContent);
-    if (score > highScore) {
-        highScore = score;
-        localStorage.setItem('snakeHighScore', highScore);
-        snakeHighScore.textContent = highScore;
-    }
+  const score = parseInt(snakeScore.textContent);
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem('snakeHighScore', highScore);
+    snakeHighScore.textContent = highScore;
+  }
+  ctx.fillStyle = 'rgba(0,0,0,0.7)';
+  ctx.fillRect(0, 0, 400, 400);
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 36px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('💀 Game Over', 200, 180);
+  ctx.font = '20px Arial';
+  ctx.fillText(`Score: ${score}`, 200, 230);
+  ctx.fillText('Click "New Game" to restart', 200, 280);
+}
