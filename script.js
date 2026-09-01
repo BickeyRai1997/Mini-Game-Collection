@@ -196,3 +196,13 @@ function gameOver() {
   ctx.fillText(`Score: ${score}`, 200, 230);
   ctx.fillText('Click "New Game" to restart', 200, 280);
 }
+function startSnake() {
+  if (snakeGameLoop) {
+    clearInterval(snakeGameLoop);
+    snakeGameLoop = null;
+  }
+  initSnake();
+  snakeGameRunning = true;
+  drawSnake();
+  snakeGameLoop = setInterval(moveSnake, snakeSpeed);
+}
