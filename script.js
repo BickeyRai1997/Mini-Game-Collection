@@ -206,3 +206,16 @@ function startSnake() {
   drawSnake();
   snakeGameLoop = setInterval(moveSnake, snakeSpeed);
 }
+// Snake controls
+document.getElementById('snakeStartBtn').addEventListener('click', startSnake);
+
+document.querySelectorAll('.arrow').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!snakeGameRunning) return;
+    const dir = btn.dataset.dir;
+    const opposites = { up: 'down', down: 'up', left: 'right', right: 'left' };
+    if (dir !== opposites[snakeDirection]) {
+      snakeDirection = dir;
+    }
+  });
+});
