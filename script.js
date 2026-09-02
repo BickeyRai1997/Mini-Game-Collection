@@ -238,3 +238,16 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+// ============================================
+// ❌ TIC-TAC-TOE
+// ============================================
+let ticBoard = Array(9).fill(null);
+let ticCurrentPlayer = 'X';
+let ticGameActive = true;
+let ticScores = { X: 0, O: 0, draw: 0 };
+
+const ticBoardEl = document.getElementById('ticBoard');
+const ticStatus = document.getElementById('ticStatus');
+const ticX = document.getElementById('ticX');
+const ticO = document.getElementById('ticO');
+const ticDraw = document.getElementById('ticDraw');
