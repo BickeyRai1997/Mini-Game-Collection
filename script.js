@@ -219,3 +219,22 @@ document.querySelectorAll('.arrow').forEach(btn => {
     }
   });
 });
+
+// Keyboard controls for snake
+document.addEventListener('keydown', (e) => {
+  if (!snakeGameRunning) return;
+  const keyMap = {
+    'ArrowUp': 'up',
+    'ArrowDown': 'down',
+    'ArrowLeft': 'left',
+    'ArrowRight': 'right'
+  };
+  const dir = keyMap[e.key];
+  if (dir) {
+    e.preventDefault();
+    const opposites = { up: 'down', down: 'up', left: 'right', right: 'left' };
+    if (dir !== opposites[snakeDirection]) {
+      snakeDirection = dir;
+    }
+  }
+});
