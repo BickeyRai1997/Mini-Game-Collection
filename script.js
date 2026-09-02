@@ -262,3 +262,18 @@ function renderTicBoard() {
     ticBoardEl.appendChild(div);
   });
 }
+function handleTicClick(index) {
+    if (!ticGameActive || ticBoard[index]) return;
+
+    ticBoard[index] = ticCurrentPlayer;
+    renderTicBoard();
+
+    const winner = checkTicWinner();
+    if (winner) {
+        ticGameActive = false;
+        ticScores[winner]++;
+        updateTicScores();
+        ticStatus.textContent = `🎉 Player ${winner} wins!`;
+        highlightTicWinner(winner);
+        return;
+    }
