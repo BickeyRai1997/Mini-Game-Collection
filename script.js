@@ -196,3 +196,84 @@ function gameOver() {
   ctx.fillText(`Score: ${score}`, 200, 230);
   ctx.fillText('Click "New Game" to restart', 200, 280);
 }
+function startSnake() {
+  if (snakeGameLoop) {
+    clearInterval(snakeGameLoop);
+    snakeGameLoop = null;
+  }
+  initSnake();
+  snakeGameRunning = true;
+  drawSnake();
+  snakeGameLoop = setInterval(moveSnake, snakeSpeed);
+}
+// Snake controls
+document.getElementById('snakeStartBtn').addEventListener('click', startSnake);
+
+document.querySelectorAll('.arrow').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!snakeGameRunning) return;
+    const dir = btn.dataset.dir;
+    const opposites = { up: 'down', down: 'up', left: 'right', right: 'left' };
+    if (dir !== opposites[snakeDirection]) {
+      snakeDirection = dir;
+    }
+  });
+});
+
+// Keyboard controls for snake
+document.addEventListener('keydown', (e) => {
+  if (!snakeGameRunning) return;
+  const keyMap = {
+    'ArrowUp': 'up',
+    'ArrowDown': 'down',
+    'ArrowLeft': 'left',
+    'ArrowRight': 'right'
+  };
+  const dir = keyMap[e.key];
+  if (dir) {
+    e.preventDefault();
+    const opposites = { up: 'down', down: 'up', left: 'right', right: 'left' };
+    if (dir !== opposites[snakeDirection]) {
+      snakeDirection = dir;
+    }
+  }
+});
+// ============================================
+// ❌ TIC-TAC-TOE
+// ============================================
+let ticBoard = Array(9).fill(null);
+let ticCurrentPlayer = 'X';
+let ticGameActive = true;
+let ticScores = { X: 0, O: 0, draw: 0 };
+
+const ticBoardEl = document.getElementById('ticBoard');
+const ticStatus = document.getElementById('ticStatus');
+const ticX = document.getElementById('ticX');
+const ticO = document.getElementById('ticO');
+const ticDraw = document.getElementById('ticDraw');
+function renderTicBoard() {
+  ticBoardEl.innerHTML = '';
+  ticBoard.forEach((cell, index) => {
+    const div = document.createElement('div');
+    div.className = 'tic-cell';
+    div.textContent = cell || '';
+    div.dataset.index = index;
+    div.addEventListener('click', () => handleTicClick(index));
+    ticBoardEl.appendChild(div);
+  });
+}
+function handleTicClick(index) {
+    if (!ticGameActive || ticBoard[index]) return;
+
+    ticBoard[index] = ticCurrentPlayer;
+    renderTicBoard();
+
+    const winner = checkTicWinner();
+    if (winner) {
+        ticGameActive = false;
+        ticScores[winner]++;
+        updateTicScores();
+        ticStatus.textContent = `🎉 Player ${winner} wins!`;
+        highlightTicWinner(winner);
+        return;
+    }
