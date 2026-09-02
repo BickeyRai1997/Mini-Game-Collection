@@ -251,3 +251,14 @@ const ticStatus = document.getElementById('ticStatus');
 const ticX = document.getElementById('ticX');
 const ticO = document.getElementById('ticO');
 const ticDraw = document.getElementById('ticDraw');
+function renderTicBoard() {
+  ticBoardEl.innerHTML = '';
+  ticBoard.forEach((cell, index) => {
+    const div = document.createElement('div');
+    div.className = 'tic-cell';
+    div.textContent = cell || '';
+    div.dataset.index = index;
+    div.addEventListener('click', () => handleTicClick(index));
+    ticBoardEl.appendChild(div);
+  });
+}
