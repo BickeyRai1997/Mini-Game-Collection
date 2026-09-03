@@ -263,17 +263,74 @@ function renderTicBoard() {
   });
 }
 function handleTicClick(index) {
-    if (!ticGameActive || ticBoard[index]) return;
+  if (!ticGameActive || ticBoard[index]) return;
 
-    ticBoard[index] = ticCurrentPlayer;
-    renderTicBoard();
+  ticBoard[index] = ticCurrentPlayer;
+  renderTicBoard();
 
-    const winner = checkTicWinner();
-    if (winner) {
-        ticGameActive = false;
-        ticScores[winner]++;
-        updateTicScores();
-        ticStatus.textContent = `🎉 Player ${winner} wins!`;
-        highlightTicWinner(winner);
-        return;
+  const winner = checkTicWinner();
+  if (winner) {
+    ticGameActive = false;
+    ticScores[winner]++;
+    updateTicScores();
+    ticStatus.textContent = `🎉 Player ${winner} wins!`;
+    highlightTicWinner(winner);
+    return;
+  }
+  if (ticBoard.every(cell => cell !== null)) {
+    ticGameActive = false;
+    ticScores.draw++;
+    updateTicScores();
+    ticStatus.textContent = "🤝 It's a draw!";
+    return;
+  }
+
+  ticCurrentPlayer = ticCurrentPlayer === 'X' ? 'O' : 'X';
+  ticStatus.textContent = `Player ${ticCurrentPlayer}'s turn`;
+}
+function checkTicWinner() {
+  const winPatterns = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
+  ];
+
+  for (const pattern of winPatterns) {
+    const [a, b, c] = pattern;
+    if (ticBoard[a] && ticBoard[a] === ticBoard[b] && ticBoard[a] === ticBoard[c]) {
+      return ticBoard[a];
     }
+  }
+  return null;
+}
+function highlightTicWinner(winner) {
+  const winPatterns = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
+  ];
+
+  for (const pattern of winPatterns) {
+    const [a, b, c] = pattern;
+    if (ticBoard[a] === winner && ticBoard[b] === winner && ticBoard[c] === winner) {
+      document.querySelectorAll('.tic-cell')[a].classList.add('win');
+      document.querySelectorAll('.tic-cell')[b].classList.add('win');
+      document.querySelectorAll('.tic-cell')[c].classList.add('win');
+    }
+  }
+}
+function updateTicScores() {
+  ticX.textContent = ticScores.X;
+  ticO.textContent = ticScores.O;
+  ticDraw.textContent = ticScores.draw;
+}
+
+function resetTic() {
+  ticBoard = Array(9).fill(null);
+  ticCurrentPlayer = 'X';
+  ticGameActive = true;
+  ticStatus.textContent = "Player X's turn";
+  renderTicBoard();
+}
+
+document.getElementById('ticResetBtn').addEventListener('click', resetTic);
