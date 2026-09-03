@@ -263,17 +263,28 @@ function renderTicBoard() {
   });
 }
 function handleTicClick(index) {
-    if (!ticGameActive || ticBoard[index]) return;
+  if (!ticGameActive || ticBoard[index]) return;
 
-    ticBoard[index] = ticCurrentPlayer;
-    renderTicBoard();
+  ticBoard[index] = ticCurrentPlayer;
+  renderTicBoard();
 
-    const winner = checkTicWinner();
-    if (winner) {
-        ticGameActive = false;
-        ticScores[winner]++;
-        updateTicScores();
-        ticStatus.textContent = `🎉 Player ${winner} wins!`;
-        highlightTicWinner(winner);
-        return;
-    }
+  const winner = checkTicWinner();
+  if (winner) {
+    ticGameActive = false;
+    ticScores[winner]++;
+    updateTicScores();
+    ticStatus.textContent = `🎉 Player ${winner} wins!`;
+    highlightTicWinner(winner);
+    return;
+  }
+  if (ticBoard.every(cell => cell !== null)) {
+    ticGameActive = false;
+    ticScores.draw++;
+    updateTicScores();
+    ticStatus.textContent = "🤝 It's a draw!";
+    return;
+  }
+
+  ticCurrentPlayer = ticCurrentPlayer === 'X' ? 'O' : 'X';
+  ticStatus.textContent = `Player ${ticCurrentPlayer}'s turn`;
+}
