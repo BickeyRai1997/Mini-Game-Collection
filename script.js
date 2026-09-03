@@ -319,4 +319,18 @@ function highlightTicWinner(winner) {
     }
   }
 }
+function updateTicScores() {
+  ticX.textContent = ticScores.X;
+  ticO.textContent = ticScores.O;
+  ticDraw.textContent = ticScores.draw;
+}
 
+function resetTic() {
+  ticBoard = Array(9).fill(null);
+  ticCurrentPlayer = 'X';
+  ticGameActive = true;
+  ticStatus.textContent = "Player X's turn";
+  renderTicBoard();
+}
+
+document.getElementById('ticResetBtn').addEventListener('click', resetTic);
