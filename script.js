@@ -303,3 +303,20 @@ function checkTicWinner() {
   }
   return null;
 }
+function highlightTicWinner(winner) {
+  const winPatterns = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
+  ];
+
+  for (const pattern of winPatterns) {
+    const [a, b, c] = pattern;
+    if (ticBoard[a] === winner && ticBoard[b] === winner && ticBoard[c] === winner) {
+      document.querySelectorAll('.tic-cell')[a].classList.add('win');
+      document.querySelectorAll('.tic-cell')[b].classList.add('win');
+      document.querySelectorAll('.tic-cell')[c].classList.add('win');
+    }
+  }
+}
+
