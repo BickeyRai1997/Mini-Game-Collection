@@ -334,3 +334,17 @@ function resetTic() {
 }
 
 document.getElementById('ticResetBtn').addEventListener('click', resetTic);
+// ============================================
+// 🧠 MEMORY GAME
+// ============================================
+const memoryBoard = document.getElementById('memoryBoard');
+const memoryMoves = document.getElementById('memoryMoves');
+const memoryPairs = document.getElementById('memoryPairs');
+
+const memoryEmojis = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊'];
+let memoryCards = [];
+let memoryFlipped = [];
+let memoryMatched = [];
+let memoryLocked = false;
+let memoryMoveCount = 0;
+let memoryInterval = null;
