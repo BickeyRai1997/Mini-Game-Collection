@@ -348,3 +348,15 @@ let memoryMatched = [];
 let memoryLocked = false;
 let memoryMoveCount = 0;
 let memoryInterval = null;
+
+function initMemory() {
+  memoryCards = [...memoryEmojis, ...memoryEmojis];
+  memoryCards = memoryCards.sort(() => Math.random() - 0.5);
+  memoryFlipped = [];
+  memoryMatched = [];
+  memoryLocked = false;
+  memoryMoveCount = 0;
+  memoryMoves.textContent = '0';
+  memoryPairs.textContent = '0';
+  renderMemory();
+}
