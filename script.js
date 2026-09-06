@@ -384,3 +384,41 @@ function renderMemory() {
     memoryBoard.appendChild(div);
   });
 }
+function handleMemoryClick(index) {
+  if (memoryLocked) return;
+  if (memoryMatched.includes(index)) return;
+  if (memoryFlipped.includes(index)) return;
+  if (memoryFlipped.length === 2) return;
+
+  memoryFlipped.push(index);
+  renderMemory();
+
+  if (memoryFlipped.length === 2) {
+    memoryLocked = true;
+    memoryMoveCount++;
+    memoryMoves.textContent = memoryMoveCount;
+
+    const [idx1, idx2] = memoryFlipped;
+    if (memoryCards[idx1] === memoryCards[idx2]) {
+      memoryMatched.push(idx1, idx2);
+      memoryFlipped = [];
+      memoryLocked = false;
+      memoryPairs.textContent = memoryMatched.length / 2;
+      renderMemory();
+
+      if (memoryMatched.length === memoryCards.length) {
+        setTimeout(() => {
+          alert(`🎉 You won in ${memoryMoveCount} moves!`);
+        }, 300);
+      }
+    } else {
+      setTimeout(() => {
+        memoryFlipped = [];
+        memoryLocked = false;
+        renderMemory();
+      }, 800);
+    }
+  }
+}
+
+document.getElementById('memoryResetBtn').addEventListener('click', initMemory);
