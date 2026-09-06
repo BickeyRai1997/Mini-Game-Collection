@@ -360,3 +360,65 @@ function initMemory() {
   memoryPairs.textContent = '0';
   renderMemory();
 }
+
+
+function renderMemory() {
+  memoryBoard.innerHTML = '';
+  memoryCards.forEach((emoji, index) => {
+    const div = document.createElement('div');
+    div.className = 'memory-card';
+    div.dataset.index = index;
+    div.dataset.emoji = emoji;
+
+    if (memoryMatched.includes(index)) {
+      div.classList.add('matched', 'flipped');
+      div.textContent = emoji;
+    } else if (memoryFlipped.includes(index)) {
+      div.classList.add('flipped');
+      div.textContent = emoji;
+    } else {
+      div.textContent = '❓';
+    }
+
+    div.addEventListener('click', () => handleMemoryClick(index));
+    memoryBoard.appendChild(div);
+  });
+}
+function handleMemoryClick(index) {
+  if (memoryLocked) return;
+  if (memoryMatched.includes(index)) return;
+  if (memoryFlipped.includes(index)) return;
+  if (memoryFlipped.length === 2) return;
+
+  memoryFlipped.push(index);
+  renderMemory();
+
+  if (memoryFlipped.length === 2) {
+    memoryLocked = true;
+    memoryMoveCount++;
+    memoryMoves.textContent = memoryMoveCount;
+
+    const [idx1, idx2] = memoryFlipped;
+    if (memoryCards[idx1] === memoryCards[idx2]) {
+      memoryMatched.push(idx1, idx2);
+      memoryFlipped = [];
+      memoryLocked = false;
+      memoryPairs.textContent = memoryMatched.length / 2;
+      renderMemory();
+
+      if (memoryMatched.length === memoryCards.length) {
+        setTimeout(() => {
+          alert(`🎉 You won in ${memoryMoveCount} moves!`);
+        }, 300);
+      }
+    } else {
+      setTimeout(() => {
+        memoryFlipped = [];
+        memoryLocked = false;
+        renderMemory();
+      }, 800);
+    }
+  }
+}
+
+document.getElementById('memoryResetBtn').addEventListener('click', initMemory);
