@@ -360,3 +360,27 @@ function initMemory() {
   memoryPairs.textContent = '0';
   renderMemory();
 }
+
+
+function renderMemory() {
+  memoryBoard.innerHTML = '';
+  memoryCards.forEach((emoji, index) => {
+    const div = document.createElement('div');
+    div.className = 'memory-card';
+    div.dataset.index = index;
+    div.dataset.emoji = emoji;
+
+    if (memoryMatched.includes(index)) {
+      div.classList.add('matched', 'flipped');
+      div.textContent = emoji;
+    } else if (memoryFlipped.includes(index)) {
+      div.classList.add('flipped');
+      div.textContent = emoji;
+    } else {
+      div.textContent = '❓';
+    }
+
+    div.addEventListener('click', () => handleMemoryClick(index));
+    memoryBoard.appendChild(div);
+  });
+}
